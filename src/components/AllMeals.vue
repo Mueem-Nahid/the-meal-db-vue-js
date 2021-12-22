@@ -2,24 +2,19 @@
   <div>
     <h3 id="searchHeader">Search Your Favourite Meals</h3>
     <div>
-      <el-row>
-        <el-col
-          :span="8"
-          v-for="meal in meals"
-          :key="meal.idCategory"
-        >
-          <el-card :body-style="{ padding: '0px' }">
-            <img
-              v-bind:src="meal.strCategoryThumb"
-              class="image"
-            />
-            <div style="padding: 14px">
-              <span>{{meal.strCategory}}</span>
-              <div class="bottom clearfix">
-                <el-button type="text" class="button">View</el-button>
+      <el-row :gutter="10">
+        <el-col :span="6" v-for="meal in meals" :key="meal.idCategory">
+          <div class="grid-content bg-purple">
+            <el-card :body-style="{ padding: '10px' }">
+              <img v-bind:src="meal.strCategoryThumb" class="image" />
+              <div style="padding: 14px">
+                <span>{{ meal.strCategory }}</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button">View</el-button>
+                </div>
               </div>
-            </div>
-          </el-card>
+            </el-card>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -82,5 +77,13 @@ export default {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+  text-align: center;
+}
+.bg-purple {
+  background: #d3dce6;
 }
 </style>
