@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #searchHeading {
   margin-right: 10px
 }

@@ -1,17 +1,11 @@
 <template>
   <div class="grid-content bg-purple">
-    <el-card :body-style="{ padding: '10px' }">
-      <img v-bind:src="meal.strCategoryThumb" class="image" />
-      <div style="padding: 14px">
-        <span>{{ meal.strCategory }}</span>
+    <el-card :body-style="{ padding: '20px' }">
+      <img v-bind:src="categoricalMeal.strMealThumb" class="image" />
+      <div style="padding: 15px">
+        <span>{{ categoricalMeal.strMeal }}</span>
         <div class="bottom clearfix">
-          <el-button type="text" class="button">
-            <router-link
-              :to="{ name: 'Details', params: { title: meal.strCategory } }"
-            >
-              View
-            </router-link>
-          </el-button>
+          <el-button type="text" class="button"> View </el-button>
         </div>
       </div>
     </el-card>
@@ -20,12 +14,14 @@
 
 <script>
 export default {
+  name: "CategoricalMeal.vue",
   props: {
-    meal: Object,
+    categoricalMeal: Object,
   },
 };
 </script>
 
+<!--
 <style>
 .bottom {
   margin-top: 13px;
@@ -55,3 +51,5 @@ export default {
   background: #d3dce6;
 }
 </style>
+
+-->
