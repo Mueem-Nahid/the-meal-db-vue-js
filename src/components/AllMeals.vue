@@ -1,35 +1,54 @@
 <template>
   <div>
-    <h3 id="searchHeader">Search Your Favourite Meals</h3>
+    <el-container id="searchHeader">
+      <h3 id="searchHeading">Search Your Favourite Meals</h3>
+      <el-aside width="200px">
+        <el-input placeholder="Search here" v-model="searchInput"></el-input>
+      </el-aside>
+      
+    </el-container>
     <div>
-      <el-row :gutter="10">
-        <el-col :span="6" v-for="meal in meals" :key="meal.idCategory">
-          <div class="grid-content bg-purple">
-            <el-card :body-style="{ padding: '10px' }">
-              <img v-bind:src="meal.strCategoryThumb" class="image" />
-              <div style="padding: 14px">
-                <span>{{ meal.strCategory }}</span>
-                <div class="bottom clearfix">
-                  <el-button type="text" class="button">View</el-button>
-                </div>
-              </div>
-            </el-card>
-          </div>
+      <el-row :gutter="10" v-if="meals.length">
+        <el-col :span="6" v-for="meal in filterSearch" :key="meal.idCategory">
+          <!-- card -->
+          <Meal v-bind:meal="meal"/>
         </el-col>
       </el-row>
+      <div v-else id="loadingAnimation">
+        <div v-loading="loading"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Meal from './Meal.vue';
 
 export default {
   name: "AllMeals",
+
+  // props: [
+  //   'title','url'
+  // ],
+
+  components: {
+    Meal
+  },
+
   data() {
     return {
       meals: [],
+      loading: true,
+      searchInput: '',
     };
+  },
+  computed: {
+    filterSearch() {
+      return this.meals.filter(meal => {
+        return meal.strCategory.toLowerCase().match(this.searchInput)
+      })
+    }
   },
   created() {
     axios
@@ -46,9 +65,14 @@ export default {
 </script>
 
 <style scoped>
+#searchHeading {
+  margin-right: 10px
+}
 #searchHeader {
   text-align: center;
-  margin: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
   padding: 10px;
   color: #67c23a;
 }
@@ -64,26 +88,14 @@ export default {
 .bg-purple-dark {
   background: #99a9bf;
 }
-.bg-purple {
-  background: #d3dce6;
-}
 .bg-purple-light {
   background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
 }
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
 }
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-  text-align: center;
-}
-.bg-purple {
-  background: #d3dce6;
+#loadingAnimation {
+  margin-top: 200px;
 }
 </style>
